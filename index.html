@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Os próximos anos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@400;500;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE: sequência da candidatura — relatório "oficial" do RH, mas carinhoso e zoeiro
+   IDEA: mural de polaroids presas com fita, linha do tempo de "projeção de carreira"
+   PICTURE: as próprias polaroids, levemente tortas, com legenda escrita à mão
+   COLOUR and TYPE: mesmo rosa-choque, papel branco, fita amarelo-limão; Anton + DM Sans + Caveat
+   LAYOUT: título grande, linha do tempo central com fotos alternando lados, encerramento com carimbo */
+:root{color-scheme:light dark;
+  --bg:light-dark(#d9134f,#3a0a1d);--paper:light-dark(#fff,#1c1418);--ink:light-dark(#1d0b13,#fbeef3);
+  --soft:light-dark(#6b4a57,#c9a9b6);--line:light-dark(#f0d6df,#3d2a33);--hi:#e9ff4f;--pink:#d9134f}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:#fff;font:16px/1.55 "DM Sans",system-ui,sans-serif;overflow-x:clip}
+.band{padding:clamp(28px,4vw,64px) max(5vw,16px)}
+h1,h2,h3{font-family:Anton,Impact,sans-serif;font-weight:400;line-height:1.05;text-wrap:balance;margin:0}
+.top{text-align:center;padding-bottom:12px}
+.kicker{font-family:Caveat,cursive;font-size:30px;color:var(--hi);margin:0 0 4px}
+h1{font-size:clamp(40px,7.5vw,66px)}
+.top p{max-width:560px;margin:14px auto 0;font-size:17px;opacity:.95}
+.stamp{display:inline-block;margin-top:22px;border:4px solid #fff;font-family:Anton,sans-serif;font-size:20px;padding:4px 14px;border-radius:6px;transform:rotate(-5deg)}
+.stage{max-width:960px;margin:0 auto}
+.prog{display:flex;gap:6px;margin:0 auto 22px;max-width:520px}
+.prog button{flex:1;min-height:24px;padding:0;background:none;border:0;border-radius:0;cursor:pointer;display:flex;align-items:center}
+.prog button::after{content:"";flex:1;height:6px;border-radius:99px;background:rgba(255,255,255,.35);transition:background .3s}
+.prog button.on::after{background:var(--hi)}
+.prog button.cur::after{background:#fff}
+.step{display:none;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center;min-height:440px}
+.step.on{display:grid;animation:in .45s ease}
+@keyframes in{from{opacity:0;transform:translateX(30px)}}
+.pol{background:var(--paper);padding:14px 14px 18px;box-shadow:0 22px 40px -16px rgba(40,0,15,.6);position:relative;transform:rotate(var(--r));max-width:380px;justify-self:center;width:100%}
+.pol::before{content:"";position:absolute;top:-12px;left:50%;width:90px;height:24px;margin-left:-45px;background:rgba(233,255,79,.85);transform:rotate(-3deg);z-index:1}
+.ph{aspect-ratio:4/3.4;background:light-dark(#f6e7ec,#2a1d23);overflow:hidden;display:grid;place-items:center;max-height:62vh}
+.ph{position:relative}
+.ph img,.ph video{width:100%;height:100%;object-fit:cover;display:block}
+.snd{position:absolute;right:10px;bottom:10px;min-height:44px;padding:0 16px;border:0;border-radius:99px;background:rgba(29,11,19,.8);color:#fff;font:700 14px "DM Sans",sans-serif;cursor:pointer}
+.snd:focus-visible{outline:3px solid var(--hi);outline-offset:2px}
+.cap{font-family:Caveat,cursive;font-size:25px;line-height:1.15;color:var(--ink);margin:12px 4px 0}
+.txt .when{display:inline-block;background:var(--hi);color:#1d0b13;font-weight:700;font-size:14px;padding:3px 10px;border-radius:99px;white-space:nowrap}
+.txt h3{font-size:clamp(30px,4vw,42px);margin:12px 0 10px}
+.txt p{margin:0;max-width:40ch;font-size:17px;opacity:.95}
+.nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:30px}
+.nav button{font:700 17px "DM Sans",sans-serif;border:0;border-radius:999px;min-height:52px;padding:0 26px;cursor:pointer}
+.nav button:focus-visible{outline:3px solid var(--hi);outline-offset:3px}
+#prev{background:rgba(255,255,255,.18);color:#fff}
+#prev:disabled{opacity:.35;cursor:default}
+#next{background:var(--hi);color:#1d0b13;box-shadow:0 5px 0 rgba(0,0,0,.25)}
+#count{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:700;min-width:4.5em;text-align:center}
+.end{text-align:center;display:none}.end.on{display:block;animation:in .45s ease}
+.end .card{max-width:620px;margin:0 auto;background:var(--paper);color:var(--ink);border-radius:6px;padding:clamp(22px,4vw,36px);position:relative}
+.end h2{font-size:clamp(32px,5vw,44px);margin-bottom:10px}
+.sign{font-family:Caveat,cursive;font-size:36px;display:inline-block;border-bottom:1px solid var(--line);padding:0 18px;margin-top:8px}
+.lbl{font-size:13px;color:var(--soft)}
+.seal{position:absolute;right:-10px;top:-18px;border:4px solid #11a35a;color:#11a35a;background:var(--paper);font-family:Anton,sans-serif;font-size:16px;padding:3px 10px;border-radius:6px;transform:rotate(10deg)}
+footer{text-align:center;font-size:13px;opacity:.8;padding-top:0}
+@media(max-width:720px){
+  .step{grid-template-columns:minmax(0,1fr);gap:22px;min-height:0}
+  .pol{max-width:340px}
+  .ph{max-height:52vh}
+  .txt{text-align:center}.txt p{margin:0 auto}
+  .nav{gap:10px}.nav button{padding:0 18px}
+  .seal{right:8px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<section class="band top">
+  <p class="kicker">candidatura aprovada. e agora?</p>
+  <h1>Se a contratação acontecer…<br>o que os próximos anos aguardam</h1>
+  <p>Vick, o RH (eu) preparou a projeção oficial de carreira do candidato aprovado. Previsões baseadas em dados, intuição e zero chance de erro.</p>
+  <div class="stamp">CONTRATO VIGENTE</div>
+</section>
+
+<section class="band" style="padding-top:20px">
+  <div class="stage">
+    <div class="prog" id="prog"></div>
+    <div id="steps"></div>
+    <section class="end" id="end">
+      <div class="card">
+        <div class="seal">RENOVADO</div>
+        <h2>Renovação automática</h2>
+        <p>Este contrato se renova sozinho todo ano. Não tem multa rescisória porque não tem rescisão. Dúvidas, reclamações e pedidos de batata frita: falar direto com o candidato.</p>
+        <p class="lbl">Assinado</p>
+        <span class="sign">Matheus ✍️</span>
+      </div>
+    </section>
+    <div class="nav">
+      <button id="prev" type="button">← Voltar</button>
+      <span id="count">1 / 11</span>
+      <button id="next" type="button">Próximo →</button>
+    </div>
+  </div>
+</section>
+
+
+
+<footer class="band">Projeção sujeita a muita risada. Nenhuma foto foi tirada do melhor ângulo, e isso é proposital.</footer>
+
+<script>
+{
+const anos=[
+  {when:"Mês 1",t:"Período de experiência",d:"Avaliação do candidato: aprovado em tudo. Já a contratante foi aprovada em dormir atravessada na cama e deixar o funcionário espremido na parede.",cap:"divisão da cama: 90% dela, 10% meu (e da parede)",img:"media/cama.jpg",r:-3},
+  {when:"Ano 1",t:"Primeira viagem juntos",d:"Pôr do sol na praia, ela no comando de tudo. Um sopro e o candidato já tá no chão, obediente até de longe.",cap:"um sopro seu e eu caio",vid:"media/viagem.mp4",poster:"media/viagem.jpg",ratio:"9/13",r:2.5},
+  {when:"Ano 1",t:"Bodas de 1 ano",d:"Bolo de casalzinho, Coca de 2 litros, painel de coração na parede e um beijo ensaiado. Brega na medida certa, do jeito que tem que ser.",cap:"ensaiamos 14 vezes, ficou natural",vid:"media/aniversario.mp4",poster:"media/aniversario.jpg",ratio:"9/13",r:-2},
+  {when:"Ano 1",t:"Clássico no estádio",d:"Corinthiano infiltrado na torcida do São Paulo. Ela grita, xinga o juiz e comemora. Ele só observa, em paz, protegendo o próprio coração.",cap:"eu, plenamente calmo, vendo você surtar",img:"media/estadio.jpg",r:3},
+  {when:"Ano 2",t:"Primeira DR",d:"Motivo: perguntei pela terceira vez onde você queria jantar. Desfecho: acabou em pizza, literalmente.",cap:"versão fiel dos fatos",img:"media/calma.jpg",r:-2.5},
+  {when:"Ano 2",t:"Dupla oficial de academia",d:"Zero melação durante o treino. Depois do treino de perna, os dois voltam pra casa carregados.",cap:"foto no espelho, sem melação (quase)",img:"media/academia.jpg",ratio:"3/4",r:2},
+  {when:"Ano 3",t:"Promoção interna",d:"De pretendente a técnico oficial de chuveiro da casa. Instalação garantida, efeitos especiais por conta da casa.",cap:"chuveiro instalado. com LED de brinde",vid:"media/chuveiro.mp4",poster:"media/chuveiro.jpg",ratio:"9/16",r:-2},
+  {when:"Ano 4",t:"Mil vídeos de humor duvidoso depois",d:"Ainda chegando às 2 da manhã, sem contexto. E ela ainda ri.",cap:"a cara de quem viu o vídeo das 2h",img:"media/cabecas.jpg",ratio:"1/1",r:2.5},
+  {when:"Ano 5",t:"Mais um coração?",d:"Talvez a equipe cresça. Mas só se você quiser. Se crescer, já sei bem qual vai ser o meu papel.",cap:"você indo pro rolê e eu de babá oficial",vid:"media/eu-e-ele.mp4",poster:"media/eu-e-ele.jpg",ratio:"16/10",r:-1.5},
+  {when:"Ano 50",t:"Bodas de ouro",d:"Sábado à tarde: máscara de argila no rosto, caça-palavras na mão e zero vontade de sair de casa. O sonho.",cap:"skincare em dia, joelho nem tanto",img:"media/bodas.jpg",ratio:"16/9",r:2}
+];
+const cam='<div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 8h3l2-2.5h6L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg></div>';
+const steps=document.getElementById('steps'),end=document.getElementById('end'),prog=document.getElementById('prog');
+const prev=document.getElementById('prev'),next=document.getElementById('next'),count=document.getElementById('count');
+steps.innerHTML=anos.map(a=>`
+  <article class="step">
+    <figure class="pol" style="--r:${a.r}deg;margin:0">
+      <div class="ph" style="${a.ratio?'aspect-ratio:'+a.ratio:''}">${a.vid?`<video src="${a.vid}" poster="${a.poster}" muted loop playsinline preload="metadata"></video><button class="snd" type="button">ativar som</button>`:a.img?`<img src="${a.img}" alt="${a.cap}">`:cam}</div>
+      <figcaption class="cap">${a.cap}</figcaption>
+    </figure>
+    <div class="txt"><span class="when">${a.when}</span><h3>${a.t}</h3><p>${a.d}</p></div>
+  </article>`).join('');
+const els=[...steps.children,end],N=els.length;
+prog.innerHTML=els.map((_,i)=>`<button type="button" aria-label="Etapa ${i+1}"></button>`).join('');
+const dots=[...prog.children];
+let cur=0;
+function silence(v){v.muted=true;v.loop=true;const b=v.nextElementSibling;if(b)b.textContent='ativar som'}
+function go(i){
+  if(i<0||i>=N)return;
+  els[cur].querySelectorAll('video').forEach(v=>{silence(v);v.pause()});
+  els.forEach(e=>e.classList.remove('on'));
+  cur=i;els[cur].classList.add('on');
+  const v=els[cur].querySelector('video');if(v){v.currentTime=0;v.play().catch(()=>{})}
+  dots.forEach((d,k)=>{d.classList.toggle('on',k<cur);d.classList.toggle('cur',k===cur)});
+  count.textContent=(cur+1)+' / '+N;
+  prev.disabled=cur===0;
+  next.textContent=cur===N-2?'Ver contrato →':cur===N-1?'Ver de novo ↺':'Próximo →';
+}
+prev.addEventListener('click',()=>go(cur-1));
+next.addEventListener('click',()=>go(cur===N-1?0:cur+1));
+dots.forEach((d,k)=>d.addEventListener('click',()=>go(k)));
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(cur+1);if(e.key==='ArrowLeft')go(cur-1)});
+let x0=null;
+steps.addEventListener('touchstart',e=>{x0=e.touches[0].clientX},{passive:true});
+steps.addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>50)go(cur+(dx<0?1:-1));x0=null});
+steps.querySelectorAll('.snd').forEach(b=>b.addEventListener('click',()=>{
+  const v=b.previousElementSibling;
+  if(v.muted){v.muted=false;v.loop=false;v.currentTime=0;v.play().catch(()=>{});b.textContent='tirar som'}
+  else silence(v);
+}));
+steps.querySelectorAll('video').forEach(v=>v.addEventListener('ended',()=>{silence(v);v.play().catch(()=>{})}));
+go(0);
+}
+</script>
+</body>
+</html>
